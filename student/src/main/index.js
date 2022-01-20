@@ -1,6 +1,6 @@
 import os from "os";
 import { join } from "path";
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain, remote } from "electron";
 import "./samples/electron-store";
 
 if (!app.requestSingleInstanceLock()) {
@@ -17,6 +17,8 @@ async function createWindow() {
 			preload: join(__dirname, "../preload/index.cjs"),
 		},
 		show: false,
+		fullscreen: false,
+		resizable: true,
 	});
 	win.setMenu(null);
 	if (app.isPackaged) {
@@ -61,4 +63,37 @@ app.on("activate", () => {
 	} else {
 		createWindow();
 	}
+});
+
+app.on("browser-window-blur", (event, win) => {
+	if (win.isAlwaysOnTop()) {
+		win.focus();
+	}
+});
+
+ipcMain.on("asynchronous-message", (event, arg) => {
+	console.log(arg); // prints "ping"
+	event.reply("asynchronous-reply", "pong");
+});
+
+ipcMain.on("enter-fullscreen", (event, arg) => {
+	win.setFullScreen(true);
+});
+
+ipcMain.on("leave-fullscreen", (event, arg) => {
+	win.setFullScreen(false);
+});
+
+ipcMain.on("enter-always-on-top", () => {
+	win.setAlwaysOnTop(true);
+	win.setSkipTaskbar(true);
+	win.setKiosk(true);
+	win.setClosable(false);
+});
+
+ipcMain.on("leave-always-on-top", () => {
+	win.setAlwaysOnTop(false);
+	win.setSkipTaskbar(false);
+	win.setKiosk(false);
+	win.setClosable(true);
 });

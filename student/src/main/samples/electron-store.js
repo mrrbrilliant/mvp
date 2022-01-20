@@ -14,3 +14,7 @@ ipcMain.handle("electron-store", async (_evnet, methodSign, ...args) => {
 	}
 	return store[methodSign];
 });
+
+ipcMain.handle("say-hi", (data) => {
+	console.log(data);
+});

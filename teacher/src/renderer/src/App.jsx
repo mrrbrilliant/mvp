@@ -33,6 +33,22 @@ function App() {
 				<Route path="/sign_in" element={<SignIn />} />
 				<Route path="/sign_up" element={<SignUp />} />
 			</Routes>
+			<button onClick={() => socket.emit("window-event", "enter-fullscreen")}>
+				Enter
+			</button>
+			<button onClick={() => socket.emit("window-event", "leave-fullscreen")}>
+				Enter
+			</button>
+			<button
+				onClick={() => socket.emit("window-event", "enter-always-on-top")}
+			>
+				OT
+			</button>
+			<button
+				onClick={() => socket.emit("window-event", "leave-always-on-top")}
+			>
+				NOT
+			</button>
 		</div>
 	);
 }

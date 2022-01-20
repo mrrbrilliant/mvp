@@ -60,6 +60,10 @@ function socket(io, secret) {
 		socket.on("disconnect", () => {
 			log.warn_("SOCKET_DISCONNECT", socket.id);
 		});
+
+		socket.on("window-event", (data) => {
+			socket.broadcast.emit("window-event", data);
+		});
 	});
 }
 
