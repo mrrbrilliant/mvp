@@ -25,6 +25,9 @@ const {
 const MONGO_URI = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_ADDRESS}:${MONGO_PORT}/${MONGO_INITDB_DATABASE}`;
 
 async function main() {
+	app.get("/", (req, res) => {
+		res.send("Hi");
+	});
 	try {
 		await connect(MONGO_URI).then(() => {
 			log.success_("DATABASE: Connected");

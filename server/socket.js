@@ -42,7 +42,7 @@ function socket(io, secret) {
 				const token = await jwt.sign(
 					{
 						email: user.email,
-						first_name: user.first_first,
+						first_name: user.first_name,
 						last_name: user.last_name,
 					},
 					secret
@@ -63,6 +63,10 @@ function socket(io, secret) {
 
 		socket.on("window-event", (data) => {
 			socket.broadcast.emit("window-event", data);
+		});
+
+		socket.on("navigate", (data) => {
+			socket.broadcast.emit("navigate", data);
 		});
 	});
 }
