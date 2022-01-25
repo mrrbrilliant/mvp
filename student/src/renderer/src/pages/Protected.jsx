@@ -9,6 +9,7 @@ export default function Protected() {
 	const socket = useContext(SocketContext);
 
 	const navigate = useNavigate();
+	const ip = window.bridge.ip;
 
 	function join({ name, room, ip }) {
 		socket.emit("join", { name, room, ip, screen: uuid() }, (error) => {
@@ -24,7 +25,7 @@ export default function Protected() {
 		} else {
 			const name = `${auth.user.first_name} ${auth.user.last_name}`;
 			const room = "root";
-			const ip = window.bridge.ip;
+
 			join({ name, room, ip });
 		}
 	}, []);
@@ -45,7 +46,8 @@ export default function Protected() {
 
 	useEffect(() => {
 		window.bridge.ipcRenderer.on("image_created", (event, arg) => {
-			socket.emit("update-screenshot", { image: arg });
+			const image_url = `http://${ip}:4000/public/${arg}`;
+			socket.emit("update-screenshot", { image: image_url });
 		});
 	});
 	return (

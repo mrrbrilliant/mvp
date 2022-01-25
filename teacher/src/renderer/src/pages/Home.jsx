@@ -71,15 +71,10 @@ function Monitor() {
 		<div id="monitor">
 			{store.room_data.map((data) => (
 				<div className="screen" key={data._id}>
-					<img
-						w="100"
-						src={`http://localhost:4000/public/${data.screen}`}
-						alt=""
-					/>
+					{data.screen ? <img w="100" src={data.screen} alt="" /> : ""}
+
 					<p>{data.name}</p>
 					<p>{data.ip}</p>
-					{/* {`http://localhost:4000/public/${data.screen}`} */}
-					{/* <p>{data.screen || "no screen"}</p> */}
 				</div>
 			))}
 		</div>
