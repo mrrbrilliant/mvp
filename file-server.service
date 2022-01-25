@@ -1,0 +1,10 @@
+[Unit]
+Description=OneLab File Server
+
+[Service]
+ExecStart=/usr/bin/node /opt/onelab-file-server/index.js 
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=onelab.service

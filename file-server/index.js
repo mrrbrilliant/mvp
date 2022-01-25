@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { homedir } = require("os")
+const { homedir } = require("os");
 const path = require("path");
 const app = express();
 const pub_dir = path.join(homedir(), "Public/screenshots");

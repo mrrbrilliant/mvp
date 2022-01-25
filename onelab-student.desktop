@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=0.1
+Type=Application
+Name=OneLab Student
+Comment=OneLab Student
+Exec=/opt/onelab-student/onelab-student.AppImage
+Icon=/usr/share/icons/koompi/koompi.svg
+Terminal=false
+StartupNotify=false
+Categories=Application;

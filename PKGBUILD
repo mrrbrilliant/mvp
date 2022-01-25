@@ -1,9 +1,10 @@
 pkgbase="onelab"
 pkgname=(
     "onelab-server"
-    # "onelab-file-server",
+    "onelab-file-server"
     "onelab-teacher"
     "onelab-student"
+    "onelab-services"
 )
 pkgver=0.1.0
 pkgrel=1
@@ -26,20 +27,46 @@ build() {
 
 package_onelab-student() {
     mkdir -p ${pkgdir}/opt/onelab-student
-    install -Dm755 ${srcdir}/${pkgbase}/student/out/make/*.AppImage ${pkgdir}/opt/onelab-student
+    mkdir -p ${pkgdir}/usr/share/applications
+
+    install -Dm755 ${srcdir}/${pkgbase}/student/out/make/*.AppImage ${pkgdir}/opt/onelab-student/onelab-student.AppImage
+    install -Dm755 ${srcdir}/${pkgbase}/${pkgname}.desktop ${pkgdir}/usr/share/applications
+
 }
 
 package_onelab-teacher() {
     mkdir -p ${pkgdir}/opt/onelab-teacher
-    install -Dm755 ${srcdir}/${pkgbase}/student/out/make/*.AppImage ${pkgdir}/opt/onelab-teacher
+    mkdir -p ${pkgdir}/usr/share/applications
+    # install binary
+    install -Dm755 ${srcdir}/${pkgbase}/student/out/make/*.AppImage ${pkgdir}/opt/onelab-teacher/onelab-teacher.AppImage
+    install -Dm755 ${srcdir}/${pkgbase}/${pkgname}.desktop ${pkgdir}/usr/share/applications
 }
 
 package_onelab-server() {
+    # create directories
+    mkdir -p ${pkgdir}/opt
+    mkdir -p ${pkgdir}/usr/bin
+    # install files to places
+    install -Dm755 ${srcdir}/${pkgbase}/setup.sh ${pkgdir}/usr/bin/onelab-server-setup
+
+    cp -r ${srcdir}/${pkgbase}/server ${pkgdir}/opt/${pkgname}
+    sed -i "s/..\/.env/.\/.env/g" ${pkgdir}/opt/${pkgname}/index.js
+}
+
+package_onelab-file-server() {
     mkdir -p ${pkgdir}/opt/
-    mkdir -p ${pkgdir}/etc/onelab-server
-    cp -r ${srcdir}/${pkgbase}/server ${pkgdir}/opt/onelab-server
-    cd ${pkgdir}/opt/onelab-server
+    cp -r ${srcdir}/${pkgbase}/file-server ${pkgdir}/opt/${pkgname}
+    cd ${pkgdir}/opt/${pkgname}
     npm install
-    cp ${srcdir}/${pkgbase}/sample.env ${pkgdir}/opt/onelab-server/.env
-    sed -i "s/..\/.env/\/etc\/onelab-server\/.env/g" ${pkgdir}/opt/onelab-server/index.js
+
+    mkdir -p ${pkgdir}/etc/system/user
+    install -Dm644 ${srcdir}/${pkgbase}/file-server.service ${pkgdir}/etc/system/user
+}
+
+package_onelab-services() {
+    mkdir -p ${pkgdir}/opt/${pkgname}
+    mkdir -p ${pkgdir}/etc/system/user
+    # install services
+    install -Dm644 ${srcdir}/${pkgbase}/vnc.service ${pkgdir}/opt/${pkgname}/onelab-vnc.service
+    install -Dm644 ${srcdir}/${pkgbase}/vnc.service ${pkgdir}/etc/system/user/onelab-vnc.service
 }

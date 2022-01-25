@@ -1,0 +1,10 @@
+[Unit]
+Description=X11 VNC Daemon
+
+[Service]
+ExecStart=/usr/bin/x11vnc --loop
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=onelab.service
