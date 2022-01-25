@@ -50,6 +50,11 @@ package_onelab-server() {
     install -Dm755 ${srcdir}/${pkgbase}/setup.sh ${pkgdir}/usr/bin/onelab-server-setup
 
     cp -r ${srcdir}/${pkgbase}/server ${pkgdir}/opt/${pkgname}
+    cp -r ${srcdir}/${pkgbase}/docker-compose.yml ${pkgdir}/opt/${pkgname}/
+    cp -r ${srcdir}/${pkgbase}/images ${pkgdir}/opt/${pkgname}/
+    cp -r ${srcdir}/${pkgbase}/db.service ${pkgdir}/opt/${pkgname}/
+    cp -r ${srcdir}/${pkgbase}/server.service ${pkgdir}/opt/${pkgname}/
+
     sed -i "s/..\/.env/.\/.env/g" ${pkgdir}/opt/${pkgname}/index.js
 }
 

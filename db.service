@@ -1,0 +1,11 @@
+[Unit]
+Description=OneLab Database
+
+[Service]
+Path=your_path
+ExecStart=/usr/bin/docker-compose up -d
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=.service

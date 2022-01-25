@@ -50,4 +50,16 @@ function prepare_env() {
         echo -e "SECRET=${SECRET}"
     } > $SERVER_DIR/.env
 
+    cd $SERVER_DIR
+    sed -i "s/your_path/${SERVER_DIR}/g" db.service
+    sed -i "s/your_path/${SERVER_DIR}/g" server.service
+
+    sudo install -Dm644 db.service /etc/systemd/system/onelab-db.service
+    sudo install -Dm644 server.service /etc/systemd/system/onelab-server.service
+
+    npm install
+
+    sudo systemctl enable --now onelab-db.service
+    sudo systemctl enable --now onelab-server.service
+
 }

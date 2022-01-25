@@ -1,0 +1,11 @@
+[Unit]
+Description=X11 VNC Daemon
+
+[Service]
+Path=your_path
+ExecStart=/usr/bin/node index.js
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=onelab.service
