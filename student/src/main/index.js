@@ -4,7 +4,7 @@ import { app, BrowserWindow, ipcMain, remote } from "electron";
 import "./samples/electron-store";
 import screenshot from "screenshot-desktop";
 import fs from "fs";
-import {v4 as uuid} from "uuid";
+import { v4 as uuid } from "uuid";
 // const os = require("os");
 import { spawn } from "child_process";
 
@@ -76,24 +76,12 @@ app.on("browser-window-blur", (event, win) => {
 	}
 });
 
-ipcMain.on("asynchronous-message", (event, arg) => {
-	console.log(arg); // prints "ping"
-	event.reply("asynchronous-reply", "pong");
-});
-
-ipcMain.on("enter-fullscreen", (event, arg) => {
-	win.setFullScreen(true);
-});
-
-ipcMain.on("leave-fullscreen", (event, arg) => {
-	win.setFullScreen(false);
-});
-
 ipcMain.on("enter-always-on-top", () => {
 	win.setAlwaysOnTop(true);
 	win.setSkipTaskbar(true);
 	win.setKiosk(true);
 	win.setClosable(false);
+	win.show();
 });
 
 ipcMain.on("leave-always-on-top", () => {
@@ -101,6 +89,7 @@ ipcMain.on("leave-always-on-top", () => {
 	win.setSkipTaskbar(false);
 	win.setKiosk(false);
 	win.setClosable(true);
+	win.hide();
 });
 
 ipcMain.on("hide", () => {

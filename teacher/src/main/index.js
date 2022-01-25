@@ -50,7 +50,6 @@ app.on("window-all-closed", () => {
 
 app.on("second-instance", () => {
 	if (win) {
-		// Someone tried to run a second instance, we should focus our window.
 		if (win.isMinimized()) win.restore();
 		win.focus();
 	}
@@ -65,6 +64,10 @@ app.on("activate", () => {
 	}
 });
 
-ipcMain.on("remote", (event, arg) => {
+ipcMain.on("remote-control", (event, arg) => {
 	spawn("vncviewer", [arg], { detached: true });
+});
+
+ipcMain.on("remote-view", (event, arg) => {
+	spawn("vncviewer", [arg, "-viewonly"], { detached: true });
 });

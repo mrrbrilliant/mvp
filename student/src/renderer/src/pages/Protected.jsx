@@ -22,6 +22,7 @@ export default function Protected() {
 	useEffect(() => {
 		if (!isAuthenticated()) {
 			navigate("/sign_in", { replace: true });
+			window.bridge.ipcRenderer.send("show");
 		} else {
 			const name = `${auth.user.first_name} ${auth.user.last_name}`;
 			const room = "root";

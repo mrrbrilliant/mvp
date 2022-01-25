@@ -96,8 +96,8 @@ function socket(io, secret) {
 			await new_connection.save();
 
 			// if (error) return callback(error);
-
 			socket.emit("notification", "Success");
+
 			// notify the new user that just joined
 
 			// Inform everyone
@@ -113,18 +113,6 @@ function socket(io, secret) {
 			callback();
 		});
 
-		// socket.on("sendMessage", (message, callback) => {
-		// 	const user = getUser(socket.id);
-
-		// 	io.to(user.room).emit("message", { user: user.name, text: message });
-
-		// 	io.to(user.room).emit("roomData", {
-		// 		room: user.room,
-		// 		users: getUsersInRoom(user.room),
-		// 	});
-		// 	callback();
-		// });
-
 		socket.on("watch-someone", async ({ ip }) => {
 			let con = await CONNECTION.findOne({ socket_id: socket.id });
 			if (con && con.room) {
@@ -132,6 +120,7 @@ function socket(io, secret) {
 				io.to(con.room).emit("watch-teacher", { ip: ip });
 			}
 		});
+
 		socket.on("disconnect", async () => {
 			let con = await CONNECTION.findOneAndRemove({ socket_id: socket.id });
 			if (con && con.room) {

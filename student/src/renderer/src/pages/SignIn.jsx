@@ -37,23 +37,23 @@ export default function SignIn() {
 	return (
 		<div id="sign_in">
 			<form onSubmit={handleSubmit}>
-				<h1>SIGN IN</h1>
+				<h1>ចូលគណនី</h1>
 				<input
 					type="email"
 					name="email"
-					placeholder="Email"
+					placeholder="អ៊ីម៉ែល"
 					value={form.email}
 					onChange={handleChange}
 				/>
 				<input
 					type="password"
 					name="password"
-					placeholder="Password"
+					placeholder="លេខសម្ងាត់"
 					value={form.password}
 					onChange={handleChange}
 				/>
-				<input type="submit" name="submit" value="Sign In" />
-				<button onClick={() => navigate("/sign_up")}>SIGN UP</button>
+				<input type="submit" name="submit" value="ចូល" />
+				<button onClick={() => navigate("/sign_up")}>ចុះឈ្មោះ</button>
 			</form>
 		</div>
 	);

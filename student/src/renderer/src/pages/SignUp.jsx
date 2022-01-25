@@ -32,36 +32,36 @@ export default function SignUp() {
 	return (
 		<div id="sign_up">
 			<form onSubmit={handleSubmit}>
-				<h1>SIGN UP</h1>
+				<h1>ចុះឈ្មោះ</h1>
 				<input
 					type="text"
-					name="first_name"
-					placeholder="First Name"
-					value={form.first_name}
+					name="last_name"
+					placeholder="ត្រកូល"
+					value={form.last_name}
 					onChange={handleChange}
 				/>
 				<input
 					type="text"
-					name="last_name"
-					placeholder="Last Name"
-					value={form.last_name}
+					name="first_name"
+					placeholder="ឈ្មោះ"
+					value={form.first_name}
 					onChange={handleChange}
 				/>
 				<input
 					type="email"
 					name="email"
-					placeholder="Email"
+					placeholder="អ៊ីម៉ែល"
 					value={form.email}
 					onChange={handleChange}
 				/>
 				<input
 					type="password"
 					name="password"
-					placeholder="Password"
+					placeholder="លេខសម្ងាត់"
 					value={form.password}
 					onChange={handleChange}
 				/>
-				<input type="submit" name="submit" value="Sign Up" />
+				<input type="submit" name="submit" value="ចុះឈ្មោះ" />
 			</form>
 		</div>
 	);
