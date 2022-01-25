@@ -3,6 +3,35 @@
 @tailwind utilities;
 
 
+* {
+	@apply box-border;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 4px;
+	height: 16px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	border-radius: 100vh;
+	background: #edf2f7;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #cbd5e0;
+	border-radius: 100vh;
+	/* border: 3px solid #edf2f7; */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #a0aec0;
+}
+
+
 #sign_in, #sign_up {
     @apply w-screen h-screen grid grid-cols-1 place-items-center;
 
@@ -21,4 +50,44 @@
     input[type="submit"] {
         @apply bg-blue-600 text-white;
     }
+}
+
+button {
+    @apply py-2 px-4 mr-2 bg-blue-700 text-white rounded-md;
+}
+
+#home {
+    @apply w-full min-h-screen grid items-stretch;
+    grid-template-columns: 64px 1fr;
+}
+
+#monitor {
+    @apply w-full min-h-screen p-4 grid content-start gap-4
+        xl:grid-cols-6
+        lg:grid-cols-5
+        md:grid-cols-4
+        sm:grid-cols-3
+        xs:grid-cols-2
+        grid-cols-2;
+
+    & > div {
+        @apply  bg-indigo-300 rounded-lg;
+    }
+
+    .screen {
+        @apply aspect-video
+    }
+}
+
+#ribbon {
+    @apply col-span-full h-32 flex p-4 gap-4 bg-blue-400 sticky top-0;
+
+    & > div {
+        @apply aspect-square rounded-lg bg-white
+    }
+}
+
+
+#nav {
+    @apply w-full h-screen sticky top-0 left-0 bg-blue-500 grid grid-cols-1 gap-3 content-start p-3
 }

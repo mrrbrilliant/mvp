@@ -1,12 +1,13 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import io from "socket.io-client";
 
-const initialSocket = io("http://localhost:4000");
+const initialSocket = io("http://10.1.2.40");
 export const SocketContext = createContext(null);
 SocketContext.displayName = "SOCKET";
 
 export function SocketProvider({ children }) {
-	const socket = initialSocket;
+	const [socket] = useState(initialSocket);
+
 	return (
 		<SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
 	);

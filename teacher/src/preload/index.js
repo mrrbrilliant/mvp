@@ -5,6 +5,7 @@ import { spawn } from "child_process";
 import { contextBridge, ipcRenderer } from "electron";
 import { domReady } from "./utils";
 import { useLoading } from "./loading";
+import { clientIp } from "./ip";
 
 const isDev = process.env.NODE_ENV === "development";
 const { appendLoading, removeLoading } = useLoading();
@@ -25,6 +26,7 @@ contextBridge.exposeInMainWorld("bridge", {
 	spawn,
 	ipcRenderer: withPrototype(ipcRenderer),
 	removeLoading,
+	ip: clientIp,
 });
 
 // `exposeInMainWorld` can not detect `prototype` attribute and methods, manually patch it.

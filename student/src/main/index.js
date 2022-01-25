@@ -2,11 +2,14 @@ import os from "os";
 import { join } from "path";
 import { app, BrowserWindow, ipcMain, remote } from "electron";
 import "./samples/electron-store";
+const screenshot = require("screenshot-desktop");
+const fs = require("fs");
+const uuid = require("uuid").v4;
 
-if (!app.requestSingleInstanceLock()) {
-	app.quit();
-	process.exit(0);
-}
+// if (!app.requestSingleInstanceLock()) {
+// 	app.quit();
+// 	process.exit(0);
+// }
 
 let win = null;
 
@@ -96,4 +99,31 @@ ipcMain.on("leave-always-on-top", () => {
 	win.setSkipTaskbar(false);
 	win.setKiosk(false);
 	win.setClosable(true);
+});
+
+ipcMain.on("hide", () => {
+	win.hide();
+});
+
+ipcMain.on("show", () => {
+	win.show();
+});
+
+ipcMain.on("screenshot", (event, arg) => {
+	const pub_dir = "/home/brilliant/Desktop/mvp/server/public";
+	const name = `${uuid()}.jpg`;
+	const target = join(pub_dir, name);
+	screenshot()
+		.then((img) => {
+			fs.writeFile(target, img, function (err) {
+				if (err) {
+					throw err;
+				}
+				console.log(`${name} created`);
+				event.reply("image_created", name);
+			});
+		})
+		.catch((err) => {
+			throw err;
+		});
 });
