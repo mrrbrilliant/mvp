@@ -3,3 +3,4 @@ database/
 **/*node_modules
 **/*dist
 server/public/*
+!sample.env
