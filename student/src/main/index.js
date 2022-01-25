@@ -2,11 +2,11 @@ import os from "os";
 import { join } from "path";
 import { app, BrowserWindow, ipcMain, remote } from "electron";
 import "./samples/electron-store";
-const screenshot = require("screenshot-desktop");
-const fs = require("fs");
-const uuid = require("uuid").v4;
-const os = require("os");
-const { spawn } = require("child_process");
+import screenshot from "screenshot-desktop";
+import fs from "fs";
+import {v4 as uuid} from "uuid";
+// const os = require("os");
+import { spawn } from "child_process";
 
 // if (!app.requestSingleInstanceLock()) {
 // 	app.quit();
@@ -117,7 +117,7 @@ ipcMain.on("screenshot", (event, arg) => {
 
 	fs.stat(pub_dir, function (err, stat) {
 		if (err && err.code === "ENOENT") {
-			fs.mkdirSync(pub_dir, 0777, { recursive: true });
+			fs.mkdirSync(pub_dir, { recursive: true });
 		}
 	});
 
@@ -138,6 +138,7 @@ ipcMain.on("screenshot", (event, arg) => {
 		});
 });
 
-ipcMain.on("watch-someone", (event, arg) => {
-	spawn("vncviewer", ["-viewonly", arg.ip], { detach: true });
+ipcMain.on("watch-teacher", (event, arg) => {
+	console.log("called");
+	spawn("vncviewer", [arg.ip, "-viewonly"], { detach: true });
 });

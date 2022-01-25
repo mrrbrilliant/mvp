@@ -1,8 +1,9 @@
 const express = require("express");
 const cors = require("cors");
+const { homedir } = require("os")
 const path = require("path");
 const app = express();
-const pub_dir = join(homedir(), "Public/screenshots");
+const pub_dir = path.join(homedir(), "Public/screenshots");
 
 app.use(cors("*"));
 app.use("/public", express.static(pub_dir));

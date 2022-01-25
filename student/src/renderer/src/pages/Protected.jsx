@@ -54,7 +54,7 @@ export default function Protected() {
 	useEffect(() => {
 		if (isAuthenticated()) {
 			socket.on("watch-teacher", ({ ip }) => {
-				window.bridge.ipcRenderer.send("watch-someone", { ip: ip });
+				window.bridge.ipcRenderer.send("watch-teacher", { ip: ip });
 			});
 		}
 	}, [socket, isAuthenticated]);
