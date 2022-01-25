@@ -8,4 +8,4 @@ Restart=always
 RestartSec=10
 
 [Install]
-WantedBy=onelab.service
+WantedBy=default.target

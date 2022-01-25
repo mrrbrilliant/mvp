@@ -14,7 +14,7 @@ function prepare_env() {
     echo "Where do you want to store your server?"
     read SERVER_DIR
     mkdir -p $SERVER_DIR
-    cp -r /opt/onelab-sever $SERVER_DIR
+    cp -r /opt/onelab-server/* $SERVER_DIR
 
     echo -e "============== DATABASE =============="
     
@@ -51,8 +51,8 @@ function prepare_env() {
     } > $SERVER_DIR/.env
 
     cd $SERVER_DIR
-    sed -i "s/your_path/${SERVER_DIR}/g" db.service
-    sed -i "s/your_path/${SERVER_DIR}/g" server.service
+    sed -i -e "s/your_path/${SERVER_DIR}/g" db.service
+    sed -i -e "s/your_path/${SERVER_DIR}/g" server.service
 
     sudo install -Dm644 db.service /etc/systemd/system/onelab-db.service
     sudo install -Dm644 server.service /etc/systemd/system/onelab-server.service
