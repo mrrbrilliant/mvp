@@ -125,6 +125,13 @@ function socket(io, secret) {
 		// 	callback();
 		// });
 
+		socket.on("watch-someone", async ({ ip }) => {
+			let con = await CONNECTION.findOneAndRemove({ socket_id: socket.id });
+			if (con && con.room) {
+				// const room_data = await CONNECTION.find({ room: con.room });
+				io.to(con.room).emit("watch-teacher", { ip: ip });
+			}
+		});
 		socket.on("disconnect", async () => {
 			let con = await CONNECTION.findOneAndRemove({ socket_id: socket.id });
 			if (con && con.room) {

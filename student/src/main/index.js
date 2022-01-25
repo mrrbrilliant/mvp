@@ -5,6 +5,8 @@ import "./samples/electron-store";
 const screenshot = require("screenshot-desktop");
 const fs = require("fs");
 const uuid = require("uuid").v4;
+const os = require("os");
+const { spawn } = require("child_process");
 
 // if (!app.requestSingleInstanceLock()) {
 // 	app.quit();
@@ -110,7 +112,15 @@ ipcMain.on("show", () => {
 });
 
 ipcMain.on("screenshot", (event, arg) => {
-	const pub_dir = "/home/brilliant/Desktop/mvp/server/public";
+	const { homedir } = os;
+	const pub_dir = join(homedir(), "Public/screenshots");
+
+	fs.stat(pub_dir, function (err, stat) {
+		if (err && err.code === "ENOENT") {
+			fs.mkdirSync(pub_dir, 0777, { recursive: true });
+		}
+	});
+
 	const name = `${uuid()}.jpg`;
 	const target = join(pub_dir, name);
 	screenshot()
@@ -126,4 +136,8 @@ ipcMain.on("screenshot", (event, arg) => {
 		.catch((err) => {
 			throw err;
 		});
+});
+
+ipcMain.on("watch-someone", (event, arg) => {
+	spawn("vncviewer", ["-viewonly", arg.ip], { detach: true });
 });

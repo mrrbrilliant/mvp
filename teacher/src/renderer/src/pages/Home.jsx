@@ -7,7 +7,7 @@ export default function Home() {
 	const [roomData, setRoomData] = useState([]);
 	const socket = useContext(SocketContext);
 	const { store, dispatch } = useContext(StoreContext);
-	// const ip = window.bridge.ip;
+	const ip = window.bridge.ip;
 
 	// function join({ name, room, ip }) {
 	// 	socket.emit("join", { name, room, ip }, (error) => {
@@ -51,7 +51,9 @@ export default function Home() {
 			</div>
 			<div>
 				<div id="ribbon">
-					<div></div>
+					<div onClick={() => socket.emit("watch-teacher", { ip: ip })}>
+						WATCH ME
+					</div>
 					<div></div>
 					<div></div>
 					<div></div>

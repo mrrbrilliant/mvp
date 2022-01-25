@@ -12,8 +12,6 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
-app.use("/public", express.static(path.join(__dirname, "public")));
-
 const {
 	MONGO_ADDRESS,
 	MONGO_PORT,

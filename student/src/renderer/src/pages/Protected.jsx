@@ -46,10 +46,19 @@ export default function Protected() {
 
 	useEffect(() => {
 		window.bridge.ipcRenderer.on("image_created", (event, arg) => {
-			const image_url = `http://${ip}:4000/public/${arg}`;
+			const image_url = `http://${ip}:4001/public/${arg}`;
 			socket.emit("update-screenshot", { image: image_url });
 		});
 	});
+
+	useEffect(() => {
+		if (isAuthenticated()) {
+			socket.on("watch-teacher", ({ ip }) => {
+				window.bridge.ipcRenderer.send("watch-someone", { ip: ip });
+			});
+		}
+	}, [socket, isAuthenticated]);
+
 	return (
 		<Fragment>
 			<Outlet />
