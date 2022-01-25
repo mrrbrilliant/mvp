@@ -72,9 +72,13 @@ function Monitor() {
 			{store.room_data.map((data) => (
 				<div className="screen" key={data._id}>
 					{data.screen ? <img w="100" src={data.screen} alt="" /> : ""}
-
 					<p>{data.name}</p>
 					<p>{data.ip}</p>
+					<button
+						onClick={() => window.bridge.ipcRenderer.send("remote", data.ip)}
+					>
+						RC
+					</button>
 				</div>
 			))}
 		</div>

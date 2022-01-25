@@ -1,6 +1,8 @@
 import os from "os";
 import { join } from "path";
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
+// const { execFile } = require('child_process');
+import { spawn } from "child_process";
 import "./samples/electron-store";
 
 if (!app.requestSingleInstanceLock()) {
@@ -61,4 +63,10 @@ app.on("activate", () => {
 	} else {
 		createWindow();
 	}
+});
+
+ipcMain.on("remote", (event, arg) => {
+	// console.log(arg); // prints "ping"
+	// event.reply("asynchronous-reply", "pong");
+	spawn("vncviewer", [arg], { detached: true });
 });
