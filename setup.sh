@@ -32,7 +32,9 @@ function prepare_env() {
 
     echo "Enter your database port"
     read MONGO_PORT
+
     sed -i "s/27010/$MONGO_PORT/g" $SERVER_DIR/docker-compose.yml
+    sed -i "s/onelab/$MONGO_INITDB_DATABASE/g" $SERVER_DIR/docker-compose.yml
 
     {
         echo -e "# For MongoDB"
@@ -51,11 +53,40 @@ function prepare_env() {
     } > $SERVER_DIR/.env
 
     cd $SERVER_DIR
-    sed -i "s/your_path/$SERVER_DIR/g" db.service
-    sed -i "s/your_path/$SERVER_DIR/g" server.service
 
-    sudo install -Dm644 db.service /etc/systemd/system/onelab-db.service
-    sudo install -Dm644 server.service /etc/systemd/system/onelab-server.service
+    {
+    echo -e "[Unit]"
+    echo -e "Description=OneLab Database"
+    echo -e ""
+    echo -e "[Service]"
+    echo -e "WorkingDirectory=${SERVER_DIR}"
+    echo -e "ExecStart=docker-compose up -d"
+    echo -e "Restart=always"
+    echo -e "RestartSec=10"
+    echo -e ""
+    echo -e "[Install]"
+    echo -e "WantedBy=default.target"
+
+    } > $SERVER_DIR/onelab-db.service
+
+    {
+    echo -e "[Unit]"
+    echo -e "Description=OneLab Server"
+    echo -e ""
+    echo -e "[Service]"
+    echo -e "WorkingDirectory=${SERVER_DIR}"
+    echo -e "ExecStart=node index.js"
+    echo -e "Restart=always"
+    echo -e "RestartSec=10"
+    echo -e ""
+    echo -e "[Install]"
+    echo -e "WantedBy=default.target"
+
+    } > $SERVER_DIR/onelab-server.service
+
+
+    sudo install -Dm644 onelab-db.service /etc/systemd/system/onelab-db.service
+    sudo install -Dm644 onelab-server.service /etc/systemd/system/onelab-server.service
 
     npm install
 

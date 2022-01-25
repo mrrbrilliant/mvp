@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: ./images/mongo/Dockerfile
-    container_name: onelab
+    container_name: onelab1
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}

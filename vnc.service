@@ -1,9 +1,8 @@
 [Unit]
-Description=OneLab Server
+Description=OneLab VNC
 
 [Service]
-Path=your_path
-ExecStart=your_bin
+ExecStart=/usr/bin/x11vnc --loop
 Restart=always
 RestartSec=10
 

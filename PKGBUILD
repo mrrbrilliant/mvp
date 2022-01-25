@@ -72,6 +72,7 @@ package_onelab-services() {
     mkdir -p ${pkgdir}/opt/${pkgname}
     mkdir -p ${pkgdir}/etc/system/user
     # install services
+
     install -Dm644 ${srcdir}/${pkgbase}/vnc.service ${pkgdir}/opt/${pkgname}/onelab-vnc.service
-    install -Dm644 ${srcdir}/${pkgbase}/vnc.service ${pkgdir}/etc/system/user/onelab-vnc.service
+    install -Dm644 ${srcdir}/${pkgbase}/vnc.service ${pkgdir}/etc/systemd/user/onelab-vnc.service
 }
