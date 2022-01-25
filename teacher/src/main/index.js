@@ -66,7 +66,5 @@ app.on("activate", () => {
 });
 
 ipcMain.on("remote", (event, arg) => {
-	// console.log(arg); // prints "ping"
-	// event.reply("asynchronous-reply", "pong");
 	spawn("vncviewer", [arg], { detached: true });
 });

@@ -51,7 +51,7 @@ export default function Home() {
 			</div>
 			<div>
 				<div id="ribbon">
-					<div onClick={() => socket.emit("watch-teacher", { ip: ip })}>
+					<div onClick={() => socket.emit("watch-someone", { ip: ip })}>
 						WATCH ME
 					</div>
 					<div></div>
