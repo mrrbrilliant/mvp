@@ -63,3 +63,5 @@ function prepare_env() {
     sudo systemctl enable --now onelab-server.service
 
 }
+
+prepare_env
