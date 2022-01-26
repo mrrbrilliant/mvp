@@ -4,10 +4,6 @@ import { useNavigate } from "react-router-dom";
 export default function NotFound() {
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		navigate("/sign_in");
-	}, []);
-
 	return (
 		<div className="w-screen h-screen text-yellow-600 select-none cursor-not-allowed bg-slate-900 grid place-items-center">
 			<div className="grid place-items-center gap-8">
