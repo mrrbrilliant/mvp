@@ -17,7 +17,7 @@ package() {
 
     mkdir -p ${pkgdir}/etc/systemd/user
     install -Dm644 ${srcdir}/${pkgname}/services/file-server.service ${pkgdir}/etc/systemd/user/onelab-file-server.service
-    install -Dm644 ${srcdir}/${pkgname}/vnc.service ${pkgdir}/etc/systemd/user/onelab-vnc.service
+    install -Dm644 ${srcdir}/${pkgname}/services/vnc.service ${pkgdir}/etc/systemd/user/onelab-vnc.service
 
     mkdir -p ${pkgdir}/usr/share/applications
     install -Dm755 ${srcdir}/${pkgname}/onelab-student.desktop ${pkgdir}/usr/share/applications
